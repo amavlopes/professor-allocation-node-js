@@ -2,7 +2,6 @@ const { Op } = require("sequelize");
 const Department = require("../models/Department");
 
 class DepartmentRepository {
-  //Precisa passar await aqui e quem for chamar ele?
   async create(department) {
     return await Department.create(department);
   }
