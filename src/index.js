@@ -1,6 +1,11 @@
-const express = require("express");
 require("dotenv/config");
+const express = require("express");
 const sequelize = require("./db/conn");
+
+const Department = require("./app/entity/Department");
+const Professor = require("./app/entity/Professor");
+const Course = require("./app/entity/Course");
+const Allocation = require("./app/entity/Allocation");
 
 const app = express();
 
