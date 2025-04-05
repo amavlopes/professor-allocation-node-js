@@ -40,8 +40,8 @@ routes.put("/:course_id", async (req, res) => {
 
   try {
     let course = await CourseRepository.update({
-      name,
       id: course_id,
+      name,
     });
 
     if (!course) return res.status(HttpStatus.NOT_FOUND).send();
