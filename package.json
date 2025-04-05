@@ -1,0 +1,21 @@
+{
+  "name": "professor-allocation-node",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "",
+    "dev": "nodemon --watch src src/index.js"
+  },
+  "author": "Amanda Avelino Lopes",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "express": "^5.1.0",
+    "nodemon": "^3.1.9"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "mysql2": "^3.14.0",
+    "sequelize": "^6.37.7"
+  }
+}
