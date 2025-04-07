@@ -10,6 +10,7 @@ const Allocation = require("./app/models/Allocation");
 const departmentRoutes = require("./app/routes/departmentRoutes");
 const courseRoutes = require("./app/routes/courseRoutes");
 const professorRoutes = require("./app/routes/professorRoutes");
+const allocationRoutes = require("./app/routes/allocationRoutes");
 
 const app = express();
 
@@ -20,6 +21,7 @@ app.use(express.json());
 app.use("/departments", departmentRoutes);
 app.use("/courses", courseRoutes);
 app.use("/professors", professorRoutes);
+app.use("/allocations", allocationRoutes);
 
 sequelize
   .sync()

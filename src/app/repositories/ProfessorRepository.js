@@ -18,10 +18,10 @@ class ProfessorRepository {
     });
   }
 
-  async findByDepartment(id) {
+  async findByDepartment(departmentId) {
     return await Professor.findAll({
+      where: { departmentId },
       include: Department,
-      where: { departmentId: id },
     });
   }
 

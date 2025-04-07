@@ -6,13 +6,10 @@ const ProfessorRepository = require("../repositories/ProfessorRepository");
 
 routes.post("/", async (req, res) => {
   const { departmentId, name, cpf } = req.body;
+  const request = { departmentId, name, cpf };
 
   try {
-    let professor = await ProfessorRepository.create({
-      departmentId,
-      name,
-      cpf,
-    });
+    let professor = await ProfessorRepository.create(request);
 
     return res.status(HttpStatus.CREATED).json(professor);
   } catch (e) {
