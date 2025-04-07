@@ -2,14 +2,14 @@ const express = require("express");
 const routes = express.Router();
 
 const HttpStatus = require("../constants/HttpStatus");
-const AllocationRepository = require("../repositories/AllocationRepository");
+const AllocationService = require("../services/AllocationService");
 
 routes.post("/", async (req, res) => {
   const { day, startHour, endHour, courseId, professorId } = req.body;
   const request = { day, startHour, endHour, courseId, professorId };
 
   try {
-    let allocation = await AllocationRepository.create(request);
+    let allocation = await AllocationService.create(request);
 
     return res.status(HttpStatus.CREATED).json(allocation);
   } catch (e) {
@@ -18,7 +18,7 @@ routes.post("/", async (req, res) => {
 });
 
 routes.get("/", async (req, res) => {
-  let allocations = await AllocationRepository.findAll();
+  let allocations = await AllocationService.findAll();
 
   return res.status(HttpStatus.OK).json(allocations);
 });
@@ -26,7 +26,7 @@ routes.get("/", async (req, res) => {
 routes.get("/:allocation_id", async (req, res) => {
   const { allocation_id } = req.params;
 
-  let allocation = await AllocationRepository.findById(allocation_id);
+  let allocation = await AllocationService.findById(allocation_id);
   if (!allocation) return res.status(HttpStatus.NOT_FOUND).send();
 
   return res.status(HttpStatus.OK).json(allocation);
@@ -34,14 +34,14 @@ routes.get("/:allocation_id", async (req, res) => {
 
 routes.get("/professor/:professor_id", async (req, res) => {
   const { professor_id } = req.params;
-  const allocations = await AllocationRepository.findByProfessor(professor_id);
+  const allocations = await AllocationService.findByProfessor(professor_id);
 
   return res.status(HttpStatus.OK).json(allocations);
 });
 
 routes.get("/course/:course_id", async (req, res) => {
   const { course_id } = req.params;
-  const courses = await AllocationRepository.findByCourse(course_id);
+  const courses = await AllocationService.findByCourse(course_id);
 
   return res.status(HttpStatus.OK).json(courses);
 });
@@ -59,7 +59,7 @@ routes.put("/:allocation_id", async (req, res) => {
   };
 
   try {
-    let allocation = await AllocationRepository.update(request);
+    let allocation = await AllocationService.update(request);
     if (!allocation) return res.status(HttpStatus.NOT_FOUND).send();
 
     return res.status(HttpStatus.OK).json(allocation);
@@ -69,7 +69,7 @@ routes.put("/:allocation_id", async (req, res) => {
 });
 
 routes.delete("/", async (req, res) => {
-  await AllocationRepository.deleteAll();
+  await AllocationService.deleteAll();
 
   return res.status(HttpStatus.NO_CONTENT).send();
 });
@@ -77,7 +77,7 @@ routes.delete("/", async (req, res) => {
 routes.delete("/:allocation_id", async (req, res) => {
   const { allocation_id } = req.params;
 
-  await AllocationRepository.deleteById(allocation_id);
+  await AllocationService.deleteById(allocation_id);
 
   return res.status(HttpStatus.NO_CONTENT).send();
 });

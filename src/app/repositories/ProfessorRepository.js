@@ -30,12 +30,10 @@ class ProfessorRepository {
   }
 
   async update(professor) {
-    const { id, name, cpf, departmentId } = professor;
+    const { id } = professor;
+    const request = { id, ...professor };
 
-    const rowsUpdated = await Professor.update(
-      { name, cpf, departmentId },
-      { where: { id } }
-    );
+    const rowsUpdated = await Professor.update(request, { where: { id } });
     if (!rowsUpdated[0]) return null;
 
     return await this.findById(id);

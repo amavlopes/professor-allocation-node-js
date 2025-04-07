@@ -10,25 +10,21 @@ class AllocationRepository {
   }
 
   async findByProfessor(professorId) {
-    return await Allocation.findAll(
-      {
-        where: {
-          professorId,
-        },
+    return await Allocation.findAll({
+      where: {
+        professorId,
       },
-      { include: { all: true } }
-    );
+      include: { all: true },
+    });
   }
 
   async findByCourse(courseId) {
-    return await Allocation.findAll(
-      {
-        where: {
-          courseId,
-        },
+    return await Allocation.findAll({
+      where: {
+        courseId,
       },
-      { include: { all: true } }
-    );
+      include: { all: true },
+    });
   }
 
   async findById(id) {
@@ -36,12 +32,10 @@ class AllocationRepository {
   }
 
   async update(allocation) {
-    const { id, day, startHour, endHour, courseId, professorId } = allocation;
+    const { id } = allocation;
+    const request = { id, ...allocation };
 
-    const rowsUpdated = await Allocation.update(
-      { day, startHour, endHour, courseId, professorId },
-      { where: { id } }
-    );
+    const rowsUpdated = await Allocation.update(request, { where: { id } });
     if (!rowsUpdated[0]) return null;
 
     return await this.findById(id);
