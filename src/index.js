@@ -1,5 +1,6 @@
 require("dotenv/config");
 const express = require("express");
+const cors = require("cors");
 const sequelize = require("./db/conn");
 
 const Department = require("./app/models/Department");
@@ -13,6 +14,12 @@ const professorRoutes = require("./app/routes/professorRoutes");
 const allocationRoutes = require("./app/routes/allocationRoutes");
 
 const app = express();
+
+app.use(
+  cors({
+    origin: process.env.ENABLED_CORS?.split(";") || [],
+  })
+);
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
