@@ -1,10 +1,15 @@
+require("../types/types.js");
 const HttpStatus = require("../constants/HttpStatus");
 const AllocationService = require("../services/AllocationService");
 
 class AllocationController {
   static async create(req, res) {
-    const { day, startHour, endHour, courseId, professorId } = req.body;
-    const request = { day, startHour, endHour, courseId, professorId };
+    const { professorId, courseId, day, startHour, endHour } = req.body;
+
+    /**
+     * @type {ALLOCATION}
+     */
+    const request = { professorId, courseId, day, startHour, endHour };
 
     try {
       let allocation = await AllocationService.create(request);
@@ -23,6 +28,7 @@ class AllocationController {
 
   static async findByProfessor(req, res) {
     const { professor_id } = req.params;
+
     const allocations = await AllocationService.findByProfessor(professor_id);
 
     return res.status(HttpStatus.OK).json(allocations);
@@ -30,9 +36,9 @@ class AllocationController {
 
   static async findByCourse(req, res) {
     const { course_id } = req.params;
-    const courses = await AllocationService.findByCourse(course_id);
+    const allocations = await AllocationService.findByCourse(course_id);
 
-    return res.status(HttpStatus.OK).json(courses);
+    return res.status(HttpStatus.OK).json(allocations);
   }
 
   static async findById(req, res) {
@@ -47,6 +53,9 @@ class AllocationController {
   static async update(req, res) {
     const { allocation_id } = req.params;
     const { day, startHour, endHour, courseId, professorId } = req.body;
+    /**
+     * @type {ALLOCATION}
+     */
     const request = {
       id: allocation_id,
       day,

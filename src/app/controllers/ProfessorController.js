@@ -1,9 +1,13 @@
+require("../types/types.js");
 const HttpStatus = require("../constants/HttpStatus");
 const ProfessorService = require("../services/ProfessorService");
 
 class ProfessorController {
   static async create(req, res) {
     const { departmentId, name, cpf } = req.body;
+    /**
+     * @type {PROFESSOR}
+     */
     const request = { departmentId, name, cpf };
 
     try {
@@ -41,6 +45,9 @@ class ProfessorController {
   static async update(req, res) {
     const { professor_id } = req.params;
     const { name, cpf, departmentId } = req.body;
+    /**
+     * @type {PROFESSOR}
+     */
     const request = { id: professor_id, name, cpf, departmentId };
 
     try {
